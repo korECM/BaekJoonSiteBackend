@@ -3,7 +3,12 @@ import Joi, { number } from 'joi';
 import User, { generateToken } from '../models/user';
 import bcrypt from 'bcrypt';
 import { getUserData, updateOneUserData } from '../util/updateUserData';
+import { ReqUserInterface } from '../util/jwtMiddleware';
 const DAY = 1000 * 60 * 60 * 24;
+
+export interface IGetUserAuthInfoRequest extends express.Request {
+  user: ReqUserInterface; // or any other type
+}
 
 const router = express.Router();
 
@@ -127,7 +132,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.get('/check', async (req, res, next) => {
+router.get('/check', async (req, res: express.Response, next) => {
   const user = req.user;
   if (!user) {
     // 로그인 중이 아닌 경우
