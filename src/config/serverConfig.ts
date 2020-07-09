@@ -5,8 +5,6 @@ import path from 'path';
 import session from 'express-session';
 import helmet from 'helmet';
 import hpp from 'hpp';
-import passport from 'passport';
-import passportConfig from '../passport';
 import connectToDB from './mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -14,7 +12,6 @@ import jwtMiddleware from '../util/jwtMiddleware';
 dotenv.config();
 
 export default async function config(app: express.Application) {
-  passportConfig(passport);
 
   const sessionOption: session.SessionOptions = {
     resave: false,
